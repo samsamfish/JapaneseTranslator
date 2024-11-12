@@ -1,0 +1,329 @@
+:root {
+    --primary-color: #364fc7;
+    --secondary-color: #5856D6;
+    --background-color: #F2F2F7;
+    --text-color: #1C1C1E;
+    --border-radius: 12px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.input-section, .output-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+textarea {
+    width: calc(100% - 2rem);
+    height: 150px;
+    padding: 1rem;
+    border: 1px solid #E5E5EA;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.style-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.style-btn {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.style-btn:hover {
+    background: rgba(0, 122, 255, 0.1);
+}
+
+.style-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.primary-btn, .secondary-btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius);
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.primary-btn {
+    background: var(--primary-color);
+    color: white;
+    width: 100%;
+}
+
+.secondary-btn {
+    background: var(--primary-color);
+    color: white;
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+    opacity: 0.9;
+}
+
+.output-box {
+    background: #F8F8F8;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    min-height: 100px;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #8E8E93;
+}
+
+.input-toolbar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.toolbar-btn {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #E5E5EA;
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toolbar-btn:hover {
+    background: #F8F8F8;
+}
+
+.toolbar-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.preview-box {
+    display: none;
+    background: #F8F8F8;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+}
+
+.preview-box.active {
+    display: block;
+}
+
+/* 添加全局 focus 樣式 */
+:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* 為按鈕和輸入框添加特定的 focus 樣式 */
+button:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(54, 79, 199, 0.1);  /* 使用主色調的半透明版本 */
+}
+
+/* 為工具欄按鈕添加特殊的 focus 樣式 */
+.toolbar-btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+/* 為風格選擇按鈕添加特殊的 focus 樣式 */
+.style-btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .style-buttons {
+        flex-direction: column;
+    }
+    
+    .style-btn {
+        width: 100%;
+    }
+}
+
+/* 風格選擇器樣式 */
+.style-selector {
+    margin-bottom: 1.5rem;
+}
+
+.style-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.style-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border: 2px solid #E5E5EA;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.style-option:hover {
+    background-color: rgba(54, 79, 199, 0.05);
+}
+
+.style-option[aria-checked="true"] {
+    border-color: var(--primary-color);
+    background-color: rgba(54, 79, 199, 0.05);
+}
+
+.style-option-radio {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 2.5rem;
+}
+
+.style-option-radio i {
+    position: absolute;
+    right: 0;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.radio-check {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #E5E5EA;
+    border-radius: 50%;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+.style-option[aria-checked="true"] .radio-check {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+}
+
+.style-option[aria-checked="true"] .radio-check::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: white;
+}
+
+.style-option-content {
+    flex-grow: 1;
+}
+
+.style-option-content strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-size: 1.1rem;
+}
+
+.style-option-content p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+} 
+
+.logo-image {
+    width: 100px;
+}
+
+/* 錯誤狀態樣式 */
+textarea.error {
+    border-color: #FF3B30;  /* Apple系統紅色 */
+    box-shadow: 0 0 0 1px #FF3B30;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #FF3B30;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.error-message.show {
+    opacity: 1;
+}
+
+.error-message i {
+    font-size: 1.2rem;
+}

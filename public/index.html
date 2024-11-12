@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本語食べません - 禮貌日文翻譯器</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>日本語食べません</h1>
+            <img 
+                src="/images/konnyaku.png" 
+                alt="翻譯蒟蒻"
+                class="logo-image"
+            >
+            <p class="subtitle">在日外國人的生存食糧，翻譯蒟蒻讓您的日文更加得體有禮</p>
+        </header>
+
+        <main>
+            <div class="input-section">
+                <div class="input-toolbar">
+                    <button type="button" class="toolbar-btn" data-format="bold" title="粗體 (Ctrl+B)">B</button>
+                    <button type="button" class="toolbar-btn" data-format="italic" title="斜體 (Ctrl+I)">I</button>
+                </div>
+                
+                <textarea 
+                    id="inputText" 
+                    placeholder="請輸入日文文本（最多1000字）" 
+                    maxlength="1000"
+                    aria-label="輸入日文文本"
+                ></textarea>
+                
+                <div class="style-selector">
+                    <div class="style-options" role="radiogroup" aria-label="選擇翻譯風格">
+                        <div class="style-option" role="radio" aria-checked="true" data-style="general">
+                            <div class="style-option-radio">
+                                <i class="ph ph-article"></i>
+                                <span class="radio-check"></span>
+                            </div>
+                            <div class="style-option-content">
+                                <strong>通用</strong>
+                                <p>保持禮貌且專業，但不過於正式，適合廣泛使用場景</p>
+                            </div>
+                        </div>
+
+                        <div class="style-option" role="radio" aria-checked="false" data-style="slack">
+                            <div class="style-option-radio">
+                                <i class="ph ph-chats-circle"></i>
+                                <span class="radio-check"></span>
+                            </div>
+                            <div class="style-option-content">
+                                <strong>Slack</strong>
+                                <p>友好且輕鬆，注重團隊之間的親和力，但仍需保持專業</p>
+                            </div>
+                        </div>
+
+                        <div class="style-option" role="radio" aria-checked="false" data-style="email">
+                            <div class="style-option-radio">
+                                <i class="ph ph-envelope"></i>
+                                <span class="radio-check"></span>
+                            </div>
+                            <div class="style-option-content">
+                                <strong>Email</strong>
+                                <p>正式且非常禮貌，適合商業書信格式</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="translateBtn" class="primary-btn">
+                    <i class="ph ph-translate"></i>
+                    生成翻譯
+                </button>
+            </div>
+
+            <div class="output-section">
+                <div id="outputText" class="output-box" aria-live="polite">
+                    翻譯結果將顯示在這裡
+                </div>
+                <button id="copyBtn" class="secondary-btn">
+                    <i class="ph ph-copy"></i>
+                    複製結果
+                </button>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2024 日本語食べません - 禮貌日文翻譯器</p>
+        </footer>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html> 
