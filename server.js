@@ -13,6 +13,12 @@ const __dirname = dirname(__filename);
 // 載入環境變量
 dotenv.config();
 
+// 驗證環境變量
+console.log('環境變量檢查：', {
+    NODE_ENV: process.env.NODE_ENV,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY ? '已設置' : '未設置'
+});
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -22,6 +28,12 @@ app.use(express.json());
 
 // 設置靜態文件目錄
 app.use(express.static('public'));
+
+// 添加請求日誌中間件
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+    next();
+});
 
 // 根路由
 app.get('/', (req, res) => {
@@ -37,8 +49,12 @@ app.post('/api/translate', async (req, res) => {
             return res.status(400).json({ error: '請提供要翻譯的文本' });
         }
 
+        if (!process.env.OPENAI_API_KEY) {
+            console.error('OpenAI API Key 未設置');
+            return res.status(500).json({ error: 'API 配置錯誤' });
+        }
+
         console.log('Processing translation request:', { text, style });
-        console.log('API Key status:', process.env.OPENAI_API_KEY ? '已設置' : '未設置');
 
         const translation = await improveText(text, editingPrompt, style);
 
@@ -55,6 +71,11 @@ app.post('/api/translate', async (req, res) => {
             details: error.message 
         });
     }
+});
+
+// 確保所有其他路由都返回 index.html
+app.get('*', (req, res) => {
+    res.sendFile(join(__dirname, 'public', 'index.html'));
 });
 
 // 啟動服務器

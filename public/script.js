@@ -1,3 +1,13 @@
+async function retryWithDelay(fn, retries = 3, delay = 1000) {
+    try {
+        return await fn();
+    } catch (error) {
+        if (retries === 0) throw error;
+        await new Promise(resolve => setTimeout(resolve, delay));
+        return retryWithDelay(fn, retries - 1, delay * 2);
+    }
+}
+
 // 常量定義
 const MAX_TEXT_LENGTH = 1000;
 
@@ -109,19 +119,30 @@ inputText.addEventListener('keydown', function(e) {
 // 翻譯函數
 async function translate(text, style) {
     try {
-        const response = await fetch('/api/translate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ text, style })
-        });
+        // 添加日誌來檢查請求
+        console.log('發送請求到:', window.location.origin + '/api/translate');
+        console.log('請求內容:', { text, style });
 
-        if (!response.ok) {
-            throw new Error('API 請求失敗');
+        const translation = await retryWithDelay(() => 
+            fetch('/api/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, style })
+            })
+        );
+
+        // 添加更詳細的錯誤處理
+        if (!translation.ok) {
+            const errorData = await translation.json().catch(() => null);
+            console.error('API 錯誤詳情:', {
+                status: translation.status,
+                statusText: translation.statusText,
+                errorData
+            });
+            throw new Error(`API 請求失敗: ${translation.status} ${translation.statusText}`);
         }
 
-        const data = await response.json();
+        const data = await translation.json();
         
         return `
             <div class="translation">
@@ -130,7 +151,8 @@ async function translate(text, style) {
         `;
     } catch (error) {
         console.error('Translation error:', error);
-        throw new Error('翻譯服務暫時無法使用');
+        showError(error.message || '翻譯服務暫時無法使用');
+        throw error;
     }
 }
 
